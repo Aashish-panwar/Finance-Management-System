@@ -1,4 +1,4 @@
-package com.FinanceMagementSystemBakend.First.dto.response;
+package com.finance.backend.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,8 +1,8 @@
-package com.FinanceMagementSystemBakend.First.controller;
+package com.finance.backend.controller;
 
-import com.FinanceMagementSystemBakend.First.dto.request.ExpenseRequest;
-import com.FinanceMagementSystemBakend.First.dto.response.ExpenseResponse;
-import com.FinanceMagementSystemBakend.First.service.ExpenseService;
+import com.finance.backend.dto.request.ExpenseRequest;
+import com.finance.backend.dto.response.ExpenseResponse;
+import com.finance.backend.service.ExpenseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

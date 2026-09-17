@@ -1,15 +1,14 @@
-package com.FinanceMagementSystemBakend.First.service.impl;
+package com.finance.backend.service.impl;
 
-import com.FinanceMagementSystemBakend.First.dto.request.ExpenseRequest;
-import com.FinanceMagementSystemBakend.First.dto.response.ExpenseResponse;
-import com.FinanceMagementSystemBakend.First.entity.Category;
-import com.FinanceMagementSystemBakend.First.entity.Expense;
-import com.FinanceMagementSystemBakend.First.entity.User;
-import com.FinanceMagementSystemBakend.First.exception.ResourceNotFoundException;
-import com.FinanceMagementSystemBakend.First.repository.CategoryRepository;
-import com.FinanceMagementSystemBakend.First.repository.ExpenseRepository;
-import com.FinanceMagementSystemBakend.First.repository.UserRepository;
-import com.FinanceMagementSystemBakend.First.service.ExpenseService;
+import com.finance.backend.dto.request.ExpenseRequest;
+import com.finance.backend.dto.response.ExpenseResponse;
+import com.finance.backend.entity.Category;
+import com.finance.backend.entity.Expense;
+import com.finance.backend.entity.User;
+import com.finance.backend.repository.CategoryRepository;
+import com.finance.backend.repository.ExpenseRepository;
+import com.finance.backend.repository.UserRepository;
+import com.finance.backend.service.ExpenseService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,10 +26,10 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public ExpenseResponse addExpense(ExpenseRequest expenseRequest){
         User user = userRepository.findById(expenseRequest.getUserid())
-                .orElseThrow(()->new ResourceNotFoundException("User Not Found"));
+                .orElseThrow(()->new RuntimeException("User Not Found"));
 
         Category category = categoryRepository.findById(expenseRequest.getCategoryid())
-                .orElseThrow(()->new ResourceNotFoundException("Category Not Found"));
+                .orElseThrow(()->new RuntimeException("Category Not Found"));
 
         Expense expense = Expense.builder()
                 .amount(expenseRequest.getAmount())
@@ -53,10 +52,11 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public ExpenseResponse getExpense(Long id){
         Expense expense = expenseRepository.findById(id)
-                .orElseThrow(()->new ResourceNotFoundException("Expense Not Found"));
+                .orElseThrow(()->new RuntimeException("Expense Not Found"));
 
         return ExpenseResponse.builder()
                 .id(expense.getId())
+                .categoryid(expense.getCategory().getId())
                 .amount(expense.getAmount())
                 .description(expense.getDescription())
                 .message("This is Expense Details")
@@ -67,7 +67,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public ExpenseResponse updateExpense(Long id,ExpenseRequest expenseRequest){
         Expense expense = expenseRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Expense Not Found"));
+                .orElseThrow(()-> new RuntimeException("Expense Not Found"));
         expense.setAmount(expenseRequest.getAmount());
         expense.setDescription(expenseRequest.getDescription());
 
@@ -84,7 +84,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public void deleteExpense(Long id){
         Expense expense = expenseRepository.findById(id)
-                .orElseThrow(()->new ResourceNotFoundException("Expense Not Found"));
+                .orElseThrow(()->new RuntimeException("Expense Not Found"));
         expenseRepository.deleteById(id);
     }
 }
