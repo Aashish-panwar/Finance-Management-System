@@ -1,4 +1,4 @@
-package com.FinanceMagementSystemBakend.First.dto.request;
+package com.finance.backend.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

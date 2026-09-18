@@ -1,6 +1,6 @@
-package com.FinanceMagementSystemBakend.First.repository;
+package com.finance.backend.repository;
 
-import com.FinanceMagementSystemBakend.First.entity.Income;
+import com.finance.backend.entity.Income;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

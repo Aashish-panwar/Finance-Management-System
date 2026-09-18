@@ -1,13 +1,13 @@
-package com.FinanceMagementSystemBakend.First.service.impl;
+package com.finance.backend.service.impl;
 
-import com.FinanceMagementSystemBakend.First.dto.request.IncomeRequest;
-import com.FinanceMagementSystemBakend.First.dto.response.IncomeResponse;
-import com.FinanceMagementSystemBakend.First.entity.Income;
-import com.FinanceMagementSystemBakend.First.entity.User;
-import com.FinanceMagementSystemBakend.First.exception.ResourceNotFoundException;
-import com.FinanceMagementSystemBakend.First.repository.IncomeRepository;
-import com.FinanceMagementSystemBakend.First.repository.UserRepository;
-import com.FinanceMagementSystemBakend.First.service.IncomeService;
+
+import com.finance.backend.dto.request.IncomeRequest;
+import com.finance.backend.dto.response.IncomeResponse;
+import com.finance.backend.entity.Income;
+import com.finance.backend.entity.User;
+import com.finance.backend.repository.IncomeRepository;
+import com.finance.backend.repository.UserRepository;
+import com.finance.backend.service.IncomeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,7 +24,7 @@ public class IncomeServiceImpl implements IncomeService {
     public IncomeResponse addIncome(IncomeRequest request){
 
         User user = userRepository.findById(request.getUserId())
-                .orElseThrow(()->new ResourceNotFoundException("User Not Found"));
+                .orElseThrow(()->new RuntimeException("User Not Found"));
 
         Income income = Income.builder()
                 .amount(request.getAmount())
@@ -47,7 +47,7 @@ public class IncomeServiceImpl implements IncomeService {
     @Override
     public IncomeResponse getIncome(Long id) {
         Income income = incomeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Income Not Found"));
+                .orElseThrow(() -> new RuntimeException("Income Not Found"));
 
         return IncomeResponse.builder()
                 .id(income.getId())

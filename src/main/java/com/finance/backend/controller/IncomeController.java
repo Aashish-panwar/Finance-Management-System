@@ -1,8 +1,8 @@
-package com.FinanceMagementSystemBakend.First.controller;
+package com.finance.backend.controller;
 
-import com.FinanceMagementSystemBakend.First.dto.request.IncomeRequest;
-import com.FinanceMagementSystemBakend.First.dto.response.IncomeResponse;
-import com.FinanceMagementSystemBakend.First.service.IncomeService;
+import com.finance.backend.dto.request.IncomeRequest;
+import com.finance.backend.dto.response.IncomeResponse;
+import com.finance.backend.service.IncomeService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -17,7 +17,7 @@ public class IncomeController {
     private final IncomeService incomeService;
 
     @PostMapping
-    public ResponseEntity<IncomeResponse> addIncome(@Valid @RequestBody IncomeRequest  request){
+    public ResponseEntity<IncomeResponse> addIncome(@Valid @RequestBody IncomeRequest request){
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(incomeService.addIncome(request));
     }
