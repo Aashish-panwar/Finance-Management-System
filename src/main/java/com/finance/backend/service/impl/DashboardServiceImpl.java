@@ -3,6 +3,7 @@ package com.finance.backend.service.impl;
 
 import com.finance.backend.dto.response.DashboardResponse;
 import com.finance.backend.entity.User;
+import com.finance.backend.exception.ResourceNotFoundException;
 import com.finance.backend.repository.ExpenseRepository;
 import com.finance.backend.repository.IncomeRepository;
 import com.finance.backend.repository.UserRepository;
@@ -22,7 +23,7 @@ public class DashboardServiceImpl implements DashboardService {
 
     public DashboardResponse getDashboard(Long id){
         User user = userRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("User Not found"));
+                .orElseThrow(()->new ResourceNotFoundException("User Not found"));
 
         BigDecimal totalIncome = incomeRepository.sumTotalIncomeByUserId(id);
         if (totalIncome == null) totalIncome = BigDecimal.ZERO;

@@ -5,6 +5,7 @@ import com.finance.backend.dto.request.IncomeRequest;
 import com.finance.backend.dto.response.IncomeResponse;
 import com.finance.backend.entity.Income;
 import com.finance.backend.entity.User;
+import com.finance.backend.exception.ResourceNotFoundException;
 import com.finance.backend.repository.IncomeRepository;
 import com.finance.backend.repository.UserRepository;
 import com.finance.backend.service.IncomeService;
@@ -47,7 +48,7 @@ public class IncomeServiceImpl implements IncomeService {
     @Override
     public IncomeResponse getIncome(Long id) {
         Income income = incomeRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Income Not Found"));
+                .orElseThrow(() -> new ResourceNotFoundException("Income Not Found"));
 
         return IncomeResponse.builder()
                 .id(income.getId())
