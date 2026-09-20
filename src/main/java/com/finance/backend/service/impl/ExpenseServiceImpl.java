@@ -5,6 +5,7 @@ import com.finance.backend.dto.response.ExpenseResponse;
 import com.finance.backend.entity.Category;
 import com.finance.backend.entity.Expense;
 import com.finance.backend.entity.User;
+import com.finance.backend.exception.ResourceNotFoundException;
 import com.finance.backend.repository.CategoryRepository;
 import com.finance.backend.repository.ExpenseRepository;
 import com.finance.backend.repository.UserRepository;
@@ -52,7 +53,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public ExpenseResponse getExpense(Long id){
         Expense expense = expenseRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("Expense Not Found"));
+                .orElseThrow(()->new ResourceNotFoundException("Expense Not Found"));
 
         return ExpenseResponse.builder()
                 .id(expense.getId())
@@ -67,7 +68,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public ExpenseResponse updateExpense(Long id,ExpenseRequest expenseRequest){
         Expense expense = expenseRepository.findById(id)
-                .orElseThrow(()-> new RuntimeException("Expense Not Found"));
+                .orElseThrow(()-> new ResourceNotFoundException("Expense Not Found"));
         expense.setAmount(expenseRequest.getAmount());
         expense.setDescription(expenseRequest.getDescription());
 
@@ -84,7 +85,7 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public void deleteExpense(Long id){
         Expense expense = expenseRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("Expense Not Found"));
+                .orElseThrow(()->new ResourceNotFoundException("Expense Not Found"));
         expenseRepository.deleteById(id);
     }
 }

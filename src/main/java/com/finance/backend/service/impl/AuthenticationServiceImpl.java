@@ -4,6 +4,7 @@ import com.finance.backend.dto.request.LoginRequest;
 import com.finance.backend.dto.request.RegisterRequest;
 import com.finance.backend.dto.response.AuthenticationResponse;
 import com.finance.backend.entity.User;
+import com.finance.backend.exception.ResourceNotFoundException;
 import com.finance.backend.repository.UserRepository;
 import com.finance.backend.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +45,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public AuthenticationResponse login(LoginRequest request){
 
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new RuntimeException("User not found."));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found."));
 
 
         if(!user.getPassword().equals(request.getPassword())){

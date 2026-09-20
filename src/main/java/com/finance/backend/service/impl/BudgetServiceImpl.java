@@ -5,6 +5,7 @@ import com.finance.backend.dto.response.BudgetResponse;
 import com.finance.backend.entity.Budget;
 import com.finance.backend.entity.Category;
 import com.finance.backend.entity.User;
+import com.finance.backend.exception.ResourceNotFoundException;
 import com.finance.backend.repository.BudgetRepository;
 import com.finance.backend.repository.CategoryRepository;
 import com.finance.backend.repository.UserRepository;
@@ -53,7 +54,7 @@ public class BudgetServiceImpl implements BudgetService {
 
     public BudgetResponse getBudget(Long id){
         Budget budget = budgetRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("Budget Not Found"));
+                .orElseThrow(()->new ResourceNotFoundException("Budget Not Found"));
         return BudgetResponse.builder()
                 .id(budget.getId())
                 .categoryid(budget.getCategory().getId())
